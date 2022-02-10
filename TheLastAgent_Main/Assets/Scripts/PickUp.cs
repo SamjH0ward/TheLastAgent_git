@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using System;
 
@@ -11,11 +10,13 @@ public class PickUp : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            OnPickUpCollected?.Invoke();
             gameObject.SetActive(false);
+            GameManager.score += 1;
+            
             
         }
     }
 
+    
     
 }
