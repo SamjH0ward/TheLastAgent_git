@@ -1,48 +1,49 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class EnemyAgro : MonoBehaviour
+
 {
-    [SerializeField] Transform player;
+    public float fovAngle = 60f;
+    public Transform fovPoint;
+    public float range = 8;
 
-    [SerializeField] float agroRange;
+    public Transform target;
+    public bool playerSeen;
 
-    [SerializeField] float moveSpeed;
-
-    Rigidbody2D rb2d;
-
-
-    // Start is called before the first frame update
-    void Start()
+   void Update()
     {
-        rb2d = GetComponent<Rigidbody2D>();
-    }
+        Vector2 dir = target.position - transform.position;
+        float angle = Vector3.Angle(dir, fovPoint.up);
+        RaycastHit2D r = Physics2D.Raycast(fovPoint.position, dir, range);
 
-    // Update is called once per frame
-    void Update()
-    {
-        //distance to player 
-        float distToPlayer = Vector2.Distance(transform.position, player.position);
-        Debug.Log(distToPlayer);
-
-        if(distToPlayer < agroRange)
+        if (angle < fovAngle / 2)
         {
-            ChasePlayer();
+            if (r.collider.CompareTag("Player"))
+            {
+                print("Seen!");
+                playerSeen = true;
+                Debug.DrawRay(fovPoint.position, dir, Color.red);
+            }
+            else
+            {
+                print("We dont see");
+                playerSeen = false;
+            }
         }
-        else
+        else if (playerSeen)
         {
-            StopChasingPlayer();
+            playerSeen = false;
+            print("dont see");
         }
     }
 
     private void StopChasingPlayer()
     {
-        Vector2 direction = Camera.main.ScreenToWorldPoint(aimPoint) - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        playerLight.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+      
     }
+
 
     private void ChasePlayer()
     {
