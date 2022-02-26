@@ -1,10 +1,13 @@
 using System;
-
+using Pathfinding;
+using UnityEngine.AI;
 using UnityEngine;
 
 public class EnemyAgro : MonoBehaviour
 
 {
+
+
     public float fovAngle = 60f;
     public Transform fovPoint;
     public float range = 8;
@@ -28,7 +31,7 @@ public class EnemyAgro : MonoBehaviour
             }
             else
             {
-                print("We dont see");
+                print("I can't see you");
                 playerSeen = false;
             }
         }
@@ -39,11 +42,13 @@ public class EnemyAgro : MonoBehaviour
         }
     }
 
+   
     private void StopChasingPlayer()
     {
-      
+        
     }
 
+    
 
     private void ChasePlayer()
     {
