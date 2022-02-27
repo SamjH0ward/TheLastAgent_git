@@ -40,11 +40,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5883555483630985476}
   - component: {fileID: 5883555483630985723}
-  - component: {fileID: 5883555483630985722}
   - component: {fileID: 5883555483630985473}
   - component: {fileID: 5883555483630985472}
   - component: {fileID: 5883555483630985479}
   - component: {fileID: 5883555483630985477}
+  - component: {fileID: 5756506069944135853}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -118,23 +118,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5883555483630985722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5883555483630985721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fa7975873eb6c24682dfefff21d3717, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fovAngle: 60
-  fovPoint: {fileID: 5883555483174945928}
-  range: 6
-  target: {fileID: 0}
-  playerSeen: 0
 --- !u!114 &5883555483630985473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,7 +176,7 @@ MonoBehaviour:
   radius: 0.5
   height: 2
   canMove: 1
-  maxSpeed: 1
+  maxSpeed: 4
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -250,3 +233,16 @@ PolygonCollider2D:
       - {x: 0.64, y: -0.64}
       - {x: 0.64, y: -0.61}
       - {x: 0.02, y: 0.64}
+--- !u!114 &5756506069944135853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5883555483630985721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b77263ec33e02fb4bb7eedd3f6ca3010, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets: []

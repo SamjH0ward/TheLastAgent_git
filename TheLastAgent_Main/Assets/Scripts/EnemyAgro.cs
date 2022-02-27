@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyAgro : MonoBehaviour
 
 {
-
+    IAstarAI agent;
 
     public float fovAngle = 60f;
     public Transform fovPoint;
@@ -14,20 +14,26 @@ public class EnemyAgro : MonoBehaviour
 
     public Transform target;
     public bool playerSeen;
+    
 
+    void Start()
+    {
+        GetComponent<IAstarAI>();
+        
+    }
    void Update()
     {
         Vector2 dir = target.position - transform.position;
-        float angle = Vector3.Angle(dir, fovPoint.up);
+        float angle = Vector2.Angle(dir, fovPoint.up);
         RaycastHit2D r = Physics2D.Raycast(fovPoint.position, dir, range);
 
         if (angle < fovAngle / 2)
         {
             if (r.collider.CompareTag("Player"))
             {
-                print("Seen!");
+                //print("Seen!");
                 playerSeen = true;
-                Debug.DrawRay(fovPoint.position, dir, Color.red);
+                //Debug.DrawRay(fovPoint.position, dir, Color.red);
             }
             else
             {
@@ -40,18 +46,18 @@ public class EnemyAgro : MonoBehaviour
             playerSeen = false;
             print("dont see");
         }
+        
     }
 
    
     private void StopChasingPlayer()
     {
-        
+       
     }
 
-    
+
 
     private void ChasePlayer()
     {
-        throw new NotImplementedException();
     }
 }

@@ -1,8 +1,11 @@
 using UnityEngine;
+
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
+    
     // Start is called before the first frame update
     [SerializeField] private float movementSpeed = 8.0f;
 
@@ -19,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
         movementInput = input.Get<Vector2>();
     }
 
+    
+    
     private void FixedUpdate()
     {
         rb2d.velocity = movementInput * movementSpeed;
