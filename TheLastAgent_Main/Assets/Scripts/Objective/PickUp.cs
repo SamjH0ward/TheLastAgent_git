@@ -10,10 +10,10 @@ public class PickUp : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
+            Escape.objcoleccted = true;
             gameObject.SetActive(false);
-            GameManager.score += 1;
-            
-            
+            GameManager.score += 50;
+         
         }
     }
 
