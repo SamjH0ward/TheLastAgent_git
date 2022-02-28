@@ -51,41 +51,42 @@ public class EnemyAgro : MonoBehaviour
             playerSeen = false;
             print("dont see");
         }
-        if (playerSeen ) { ChasePlayer(); }
-        else if (playerSeen == false && chaseing) { StopChasingPlayer(); }
+        if (playerSeen )
+        {
+            agent.destination = target.position;
+            agent.SearchPath();
+            chaseing = true;
+        }
+        else if (playerSeen == false && chaseing) {
+            if (_patrolRoots.Length == 0) return;
+            bool search = false;
+            // Check if the agent has reached the current target.
+            // We must check for 'pathPending' because otherwise we might
+            // detect that the agent has reached the *previous* target
+            // because the new path has not been calculated yet.
+            if (agent.reachedDestination && !agent.pathPending)
+            {
+                index = index + 1;
+                search = true;
+            }
+            // Wrap around to the start of the targets array if we have reached the end of it
+            index = index % _patrolRoots.Length;
+            agent.destination = _patrolRoots[index].position;
+            // Immediately calculate a path to the target.
+            // Note that this needs to be done after setting the destination.
+            if (search) agent.SearchPath(); }
         
     }
 
    
     private void StopChasingPlayer()
     {
-        while (playerSeen == false) {  
-        if (_patrolRoots.Length == 0) return;
-        bool search = false;
-        // Check if the agent has reached the current target.
-        // We must check for 'pathPending' because otherwise we might
-        // detect that the agent has reached the *previous* target
-        // because the new path has not been calculated yet.
-        if (agent.reachedDestination && !agent.pathPending)
-        {
-            index = index + 1;
-            search = true;
-        }
-        // Wrap around to the start of the targets array if we have reached the end of it
-        index = index % _patrolRoots.Length;
-        agent.destination = _patrolRoots[index].position;
-        // Immediately calculate a path to the target.
-        // Note that this needs to be done after setting the destination.
-        if (search) agent.SearchPath();
-        }
     }
 
 
 
     private void ChasePlayer()
     {
-        agent.destination = target.position;
-        agent.SearchPath();
-        chaseing = true;
+       
     }
 }
