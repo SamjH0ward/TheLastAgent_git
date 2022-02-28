@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
+using TMPro;
+
 
 public class MainObj : MonoBehaviour
+   
 {
+    public  TextMeshProUGUI score_Ui;
     // Start is called before the first frame update
-    public event Action OnMainObj;
-    [SerializeField] private GameObject test;
+
+    [SerializeField] private GameObject _escapePoint;
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -15,10 +16,11 @@ public class MainObj : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
 
-            test.SetActive(true);
+            _escapePoint.SetActive(true);
             gameObject.SetActive(false);
             GameManager.score += 100;
-           
+            score_Ui.text = "Score: " + GameManager.score;
+
         }
     }
 }
