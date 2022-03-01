@@ -16,21 +16,15 @@ public class GameManager : MonoBehaviour
         _pickUpCollected = GetComponent<PickUp>();
     }
 
-
+    /*
 
     private void OnEnable() {
         _pickUpCollected.OnPickUpCollected += LoadNextLevel; }
-    private void OnDisable() { Debug.Log("Test disable"); _pickUpCollected.OnPickUpCollected -= LoadNextLevel; }
+    private void OnDisable() { _pickUpCollected.OnPickUpCollected -= LoadNextLevel; }
     
     private void LoadNextLevel()
     {
-        Debug.Log("Test");
-
-        
-        
-
-
-    }
+    } */
 
     
 

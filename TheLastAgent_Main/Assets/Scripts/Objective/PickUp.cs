@@ -5,7 +5,7 @@ using System;
 public class PickUp : MonoBehaviour
 {
     public  TextMeshProUGUI score_Ui; 
-    public event Action OnPickUpCollected;
+    //public event Action OnPickUpCollected;
     
     private void OnTriggerEnter2D(Collider2D collision){
         

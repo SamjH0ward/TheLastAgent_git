@@ -36,45 +36,51 @@ public class EnemyAgro : MonoBehaviour
         {
             if (r.collider.CompareTag("Player"))
             {
-                print("Seen!");
+                
                 playerSeen = true;
                 Debug.DrawRay(fovPoint.position, dir, Color.red);
             }
             else
             {
-                print("I can't see you");
+                
                 playerSeen = false;
             }
         }
         else if (playerSeen)
         {
             playerSeen = false;
-            print("dont see");
+            
         }
-        if (playerSeen )
+        if (playerSeen)
         {
             agent.destination = target.position;
             agent.SearchPath();
             chaseing = true;
+            agent.maxSpeed = 6.5f;
         }
-        else if (playerSeen == false && chaseing) {
-            if (_patrolRoots.Length == 0) return;
-            bool search = false;
-            // Check if the agent has reached the current target.
-            // We must check for 'pathPending' because otherwise we might
-            // detect that the agent has reached the *previous* target
-            // because the new path has not been calculated yet.
-            if (agent.reachedDestination && !agent.pathPending)
-            {
-                index = index + 1;
-                search = true;
+        else if (playerSeen == false) { 
+                agent.maxSpeed = 4;
+                if (_patrolRoots.Length == 0) return;
+                bool search = false;
+                // Check if the agent has reached the current target.
+                // We must check for 'pathPending' because otherwise we might
+                // detect that the agent has reached the *previous* target
+                // because the new path has not been calculated yet.
+                if (agent.reachedDestination && !agent.pathPending)
+                {
+                    index = index + 1;
+                    search = true;
+                }
+                // Wrap around to the start of the targets array if we have reached the end of it
+                index = index % _patrolRoots.Length;
+                agent.destination = _patrolRoots[index].position;
+                // Immediately calculate a path to the target.
+                // Note that this needs to be done after setting the destination.
+                if (search) agent.SearchPath();
             }
-            // Wrap around to the start of the targets array if we have reached the end of it
-            index = index % _patrolRoots.Length;
-            agent.destination = _patrolRoots[index].position;
-            // Immediately calculate a path to the target.
-            // Note that this needs to be done after setting the destination.
-            if (search) agent.SearchPath(); }
+        }
+
+            
         
     }
 
