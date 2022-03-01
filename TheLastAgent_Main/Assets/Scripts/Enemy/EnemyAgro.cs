@@ -8,91 +8,82 @@ public class EnemyAgro : MonoBehaviour
 {
     IAstarAI agent;
 
-    public float fovAngle = 60f;
-    public Transform fovPoint;
-    public float range = 8;
-
-    [SerializeField] private Transform target;
-    [SerializeField]  private Transform[] _patrolRoots;
+    #region Private veriables
+    private float _fovAngle = 80f;
+    [SerializeField] private Transform _fovPoint;
+    private float _range = 8;
+    [SerializeField] private Transform _target;
+    [SerializeField] private Transform[] _patrolRoots;
+    private bool playerSeen;
     private int index;
-    public bool playerSeen;
+    #endregion 
 
-    private bool chaseing;
-    
-
+ 
     void Start()
     {
         agent = GetComponent<IAstarAI>();
-        StopChasingPlayer();
-        
-    }
-   void Update()
-    {
-        Vector2 dir = target.position - transform.position;
-        float angle = Vector2.Angle(dir, fovPoint.up);
-        RaycastHit2D r = Physics2D.Raycast(fovPoint.position, dir, range);
 
-        if (angle < fovAngle / 2)
+
+    }
+    void Update()
+    {
+        #region raycaster
+        Vector2 dir = _target.position - transform.position;
+        float angle = Vector2.Angle(dir, _fovPoint.up);
+        RaycastHit2D r = Physics2D.Raycast(_fovPoint.position, dir, _range);
+
+        if (angle < _fovAngle / 2)
         {
             if (r.collider.CompareTag("Player"))
             {
-                
+
                 playerSeen = true;
-                Debug.DrawRay(fovPoint.position, dir, Color.red);
+                Debug.DrawRay(_fovPoint.position, dir, Color.red);
             }
             else
             {
-                
+
                 playerSeen = false;
             }
         }
         else if (playerSeen)
         {
             playerSeen = false;
-            
+
         }
+        #endregion
+
+        #region chase player
         if (playerSeen)
         {
-            agent.destination = target.position;
+            agent.destination = _target.position;
             agent.SearchPath();
-            chaseing = true;
             agent.maxSpeed = 6.5f;
         }
-        else if (playerSeen == false) { 
-                agent.maxSpeed = 4;
-                if (_patrolRoots.Length == 0) return;
-                bool search = false;
-                // Check if the agent has reached the current target.
-                // We must check for 'pathPending' because otherwise we might
-                // detect that the agent has reached the *previous* target
-                // because the new path has not been calculated yet.
-                if (agent.reachedDestination && !agent.pathPending)
-                {
-                    index = index + 1;
-                    search = true;
-                }
-                // Wrap around to the start of the targets array if we have reached the end of it
-                index = index % _patrolRoots.Length;
-                agent.destination = _patrolRoots[index].position;
-                // Immediately calculate a path to the target.
-                // Note that this needs to be done after setting the destination.
-                if (search) agent.SearchPath();
+        #endregion
+
+        #region patroll 
+        else if (playerSeen == false) {
+            agent.maxSpeed = 4;
+            if (_patrolRoots.Length == 0) return;
+            bool search = false;
+
+            // Checks if the agent has reached the current target.
+            if (agent.reachedDestination && !agent.pathPending)
+            {
+                index += 1;
+                search = true;
             }
+            // Wrap around to the start of the targets array if its reached the end
+            index %= _patrolRoots.Length;
+            agent.destination = _patrolRoots[index].position;
+            // Immediately calculate a path to the target.
+            if (search) agent.SearchPath();
         }
-
-            
-        
-    }
-
-   
-    private void StopChasingPlayer()
-    {
-    }
-
-
-
-    private void ChasePlayer()
-    {
-       
+        #endregion 
     }
 }
+            
+        
+    
+

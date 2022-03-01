@@ -5,7 +5,7 @@ using System;
 
 public class Escape : MonoBehaviour
 {
-    public static bool objcoleccted;
+    public static bool objColeccted;
     public event Action PlayerHasEscaped;
 
     // Start is called before the first frame update
