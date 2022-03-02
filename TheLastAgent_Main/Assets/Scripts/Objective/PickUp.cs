@@ -15,8 +15,7 @@ public class PickUp : MonoBehaviour
         {
             onPickUpCollected?.Invoke();
             gameObject.SetActive(false);
-            
-     
+          
         }
     }
 

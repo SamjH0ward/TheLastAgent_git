@@ -1,14 +1,15 @@
 using UnityEngine;
-using TMPro;
+using System;
 
 
 public class MainObj : MonoBehaviour
    
 {
-    public  TextMeshProUGUI score_Ui;
+    
     // Start is called before the first frame update
 
     [SerializeField] private GameObject _escapePoint;
+    public static event Action onMainOBJCollected;
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -16,10 +17,11 @@ public class MainObj : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
 
-            _escapePoint.SetActive(true);
+            onMainOBJCollected?.Invoke();
+            
             gameObject.SetActive(false);
-            GameManager.score += 100;
-            score_Ui.text = "Score: " + GameManager.score;
+            
+            
 
         }
     }

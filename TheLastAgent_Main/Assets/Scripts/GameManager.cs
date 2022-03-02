@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private static PickUp _pickUpCollected;
     [SerializeField] public static int score = 0;
     [SerializeField] private TextMeshProUGUI score_Ui;
+    [SerializeField] private GameObject _escapePoint;
 
     private void Start()
     {
@@ -42,6 +43,11 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
     } 
+
+    private void mainOBJCollected()
+    {
+        _escapePoint.SetActive(true);
+    }
 
     
 
