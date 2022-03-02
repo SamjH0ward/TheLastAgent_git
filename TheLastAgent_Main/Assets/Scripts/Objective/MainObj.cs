@@ -5,10 +5,8 @@ using System;
 public class MainObj : MonoBehaviour
    
 {
-    
+  
     // Start is called before the first frame update
-
-    [SerializeField] private GameObject _escapePoint;
     public static event Action onMainOBJCollected;
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -16,13 +14,8 @@ public class MainObj : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-
             onMainOBJCollected?.Invoke();
-            
             gameObject.SetActive(false);
-            
-            
-
         }
     }
 }
