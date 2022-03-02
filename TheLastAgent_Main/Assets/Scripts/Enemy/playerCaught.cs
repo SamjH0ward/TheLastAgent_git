@@ -1,33 +1,17 @@
 using UnityEngine;
-using System.Collections;
-using Pathfinding;
-public class Patroll : MonoBehaviour
+using System;
+public class playerCaught : MonoBehaviour
 {
-    public Transform[] targets;
-    int index;
-    IAstarAI agent;
-    void Awake()
+    public static event Action OnPlayerCaught;
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        agent = GetComponent<IAstarAI>();
-    }
-    void Update()
-    {
-        if (targets.Length == 0) return;
-        bool search = false;
-        // Check if the agent has reached the current target.
-        // We must check for 'pathPending' because otherwise we might
-        // detect that the agent has reached the *previous* target
-        // because the new path has not been calculated yet.
-        if (agent.reachedDestination && !agent.pathPending)
+       
+
+        if (collision.gameObject.CompareTag("Player"))
         {
-            index = index + 1;
-            search = true;
+            OnPlayerCaught?.Invoke();
+            
         }
-        // Wrap around to the start of the targets array if we have reached the end of it
-        index = index % targets.Length;
-        agent.destination = targets[index].position;
-        // Immediately calculate a path to the target.
-        // Note that this needs to be done after setting the destination.
-        if (search) agent.SearchPath();
     }
+
 }
