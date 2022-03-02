@@ -28,29 +28,39 @@ public class EnemyAgro : MonoBehaviour
     void Update()
     {
         #region raycaster
+        // determine direction to target
         Vector2 dir = _target.position - transform.position;
+        // determine angle to target vector
         float angle = Vector2.Angle(dir, _fovPoint.up);
-        RaycastHit2D r = Physics2D.Raycast(_fovPoint.position, dir, _range);
+        // cast ray towards target
+        RaycastHit2D hit = Physics2D.Raycast(_fovPoint.position, dir, _range);
 
-        if (angle < _fovAngle / 2)
+        // if ray intersects with object
+        if (hit)
         {
-            if (r.collider.CompareTag("Player"))
+            if (angle < _fovAngle / 2)
             {
+                if (hit.collider.CompareTag("Player"))
+                {
 
-                playerSeen = true;
-                Debug.DrawRay(_fovPoint.position, dir, Color.red);
+                    playerSeen = true;
+                    Debug.DrawRay(_fovPoint.position, dir, Color.red);
+                }
+                else
+                {
+
+                    playerSeen = false;
+                }
             }
-            else
+            else if (playerSeen)
             {
-
                 playerSeen = false;
+
             }
         }
-        else if (playerSeen)
-        {
-            playerSeen = false;
-
-        }
+        
+        //
+        
         #endregion
 
         #region chase player
