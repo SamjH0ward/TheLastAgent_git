@@ -8,12 +8,37 @@ public class GameManager : MonoBehaviour
 {
     //private static Escape _playerEscaped;
     private static PickUp _pickUpCollected;
-    private int score = 0;
+    private static int score;
     private int scoreThisAttempt = 0;
     [SerializeField] private TextMeshProUGUI score_Ui;
     [SerializeField] private TextMeshProUGUI lives_Ui;
     [SerializeField] private GameObject _escapePoint;
-    private int lives = 3;
+    [SerializeField] private Transform playerLocation;
+    [SerializeField] private GameObject player;
+    private static int lives = 3;
+    private GameObject[] test;
+
+    private static GameManager _instance;
+
+    public static GameManager Instance { get { return _instance; } }
+
+
+    private void Awake()
+    {
+        playerLocation = playerLocation.transform;
+        test = GameObject.FindGameObjectsWithTag("PickUp");
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
+        
+
+    private GameObject[] tests;
 
     private void Start()
     {
@@ -42,7 +67,7 @@ public class GameManager : MonoBehaviour
     {
         score += 50;
         scoreThisAttempt += 50;
-        score_Ui.text = "Score: " + score;
+        score_Ui.text = "Score: " + score + "" + scoreThisAttempt;
     }
 
    
@@ -63,11 +88,22 @@ public class GameManager : MonoBehaviour
 
     private void playerWasCaught()
     {
-        lives -= 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+         
+         lives -= 1;
+     
         score -= scoreThisAttempt;
-        scoreThisAttempt = 0;  
-        lives_Ui.text = "Lives" + lives;
+        scoreThisAttempt = 0;
+
+        foreach (GameObject i in test)
+        {
+            Debug.LogWarning(i);
+            i.SetActive(true);
+        }
+       
+        
+        
+        lives_Ui.text = "Lives: " + lives;
+        score_Ui.text = "Score: " + score; 
     }
     
 
