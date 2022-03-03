@@ -10,7 +10,7 @@ public class playerCaught : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             OnPlayerCaught?.Invoke();
-            gameObject.SetActive(false);
+           
             
         }
     }

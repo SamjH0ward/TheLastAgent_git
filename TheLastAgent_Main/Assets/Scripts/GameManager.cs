@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     {
         score += 50;
         scoreThisAttempt += 50;
-        score_Ui.text = "Score: " + score + "" + scoreThisAttempt;
+        score_Ui.text = "Score: " + score;
     }
 
    
