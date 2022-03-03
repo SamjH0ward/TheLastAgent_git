@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI score_Ui;
     [SerializeField] private TextMeshProUGUI lives_Ui;
     [SerializeField] private GameObject _escapePoint;
-    [SerializeField] private Transform playerLocation;
+    private Vector2 playerLocation;
     [SerializeField] private GameObject player;
     private static int lives = 3;
     private GameObject[] test;
@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        playerLocation = playerLocation.transform;
+        playerLocation = player.transform.position;
         test = GameObject.FindGameObjectsWithTag("PickUp");
         if (_instance != null && _instance != this)
         {
@@ -99,7 +99,8 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning(i);
             i.SetActive(true);
         }
-       
+
+        player.transform.position = playerLocation;
         
         
         lives_Ui.text = "Lives: " + lives;
