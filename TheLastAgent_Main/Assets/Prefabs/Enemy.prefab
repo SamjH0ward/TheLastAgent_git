@@ -45,11 +45,11 @@ GameObject:
   - component: {fileID: 5883555483630985479}
   - component: {fileID: 5883555483630985477}
   - component: {fileID: -3922658392092933436}
-  - component: {fileID: 812020467155221632}
+  - component: {fileID: 2422073237001124769}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: 3f658758831042e4d8a9a7b4180b415a, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -213,7 +213,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -249,7 +249,7 @@ MonoBehaviour:
   _fovPoint: {fileID: 0}
   _target: {fileID: 0}
   _patrolRoots: []
---- !u!114 &812020467155221632
+--- !u!114 &2422073237001124769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
