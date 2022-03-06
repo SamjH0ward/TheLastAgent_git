@@ -8,13 +8,14 @@ public class GameManager : MonoBehaviour
 {
     
     
-    private static int score;
+    public static int score;
     private int scoreThisAttempt = 0;
     [SerializeField] private TextMeshProUGUI score_Ui;
     [SerializeField] private TextMeshProUGUI lives_Ui;
     [SerializeField] private GameObject _escapePoint;
-    [SerializeField] private GameObject player;
     private static int lives = 3;
+
+  
 
 
     private static GameManager _instance;
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-
+        
       
         if (_instance != null && _instance != this)
         {
@@ -41,8 +42,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        score_Ui.text = "Score: " + score;
-        lives_Ui.text = "Lives: " + lives;
+        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("GameOver"))
+        {
+            score_Ui.text = "Score: " + score;
+            lives_Ui.text = "Lives: " + lives;
+        }
     }
 
 
@@ -101,9 +105,14 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-
+          
+            scoreThisAttempt = 0;
+            lives = 3;
+            SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
         }
     }
+
+   
     
 
 }
