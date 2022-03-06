@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
             // statrs the timer depending on the level the user is on
             if (currenScene == SceneManager.GetSceneByName("LevelOne"))
             {
+                Debug.Log(currenScene);
                 // starts a timer for 2 minutes and 30 seconds
                 StartCoroutine(levelTimer(150));
             }

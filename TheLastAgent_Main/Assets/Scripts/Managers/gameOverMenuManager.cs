@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-public class MenuManager : MonoBehaviour
+public class gameOverMenuManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _finaleScore;
     [SerializeField] private TextMeshProUGUI _title;
@@ -21,6 +21,7 @@ public class MenuManager : MonoBehaviour
     public void Retry()
     {
         GameManager.score = 0;
+        GameManager.lives = 3;
         SceneManager.LoadScene("LevelOne", LoadSceneMode.Single);
     }
     public void Quit()
