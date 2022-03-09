@@ -15,6 +15,6 @@ public class PlayerLook : MonoBehaviour
     {
         Vector2 direction = Camera.main.ScreenToWorldPoint(_aimPoint) - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        _playerLight.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        _playerLight.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
     }
 }
