@@ -101,6 +101,14 @@ public class GameManager : MonoBehaviour
 
     private void LoadNextLevel()
     {
+        if(lives == 3)
+        {
+            score += 100;
+        }
+        else
+        {
+            lives += 1;
+        }
         scoreThisAttempt = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
     } 
