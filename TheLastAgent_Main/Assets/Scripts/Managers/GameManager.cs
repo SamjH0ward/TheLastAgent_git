@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.Audio;
 
 
 public class GameManager : MonoBehaviour
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI lives_Ui;
     [SerializeField] private TextMeshProUGUI timer_Ui;
     [SerializeField] private GameObject _escapePoint;
+    [SerializeField] private AudioSource _pickUpAudio;
     public static int lives = 3;
 
   
@@ -26,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        
+        _pickUpAudio = GetComponent<AudioSource>();
       
         if (_instance != null && _instance != this)
         {
@@ -76,6 +78,7 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
+        //event listeners
         Escape.PlayerHasEscaped += LoadNextLevel;
         PickUp.onPickUpCollected += pickUpCollected;
         MainObj.onMainOBJCollected += mainOBJCollected;
@@ -95,6 +98,8 @@ public class GameManager : MonoBehaviour
         score += 50;
         scoreThisAttempt += 50;
         score_Ui.text = "Score: " + score;
+        //plays the pickup sound affect 
+        _pickUpAudio.Play();
     }
 
    
@@ -121,6 +126,8 @@ public class GameManager : MonoBehaviour
         score += 100;
         scoreThisAttempt += 100;
         score_Ui.text = "Score: " + score;
+
+        _pickUpAudio.Play();
     }
 
     private void playerWasCaught()
