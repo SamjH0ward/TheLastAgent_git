@@ -38,6 +38,7 @@ public class EnemyAgro : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(_fovPoint.position, dir, _range);
 
         // if ray intersects with object
+
         if (hit)
         {
             if (angle < _fovAngle / 2)
@@ -47,24 +48,21 @@ public class EnemyAgro : MonoBehaviour
                     if (!playerSeen)
                     {
                         alert.Play();
-                        
                     }
                     playerSeen = true;
                     Debug.DrawRay(_fovPoint.position, dir, Color.red);
                 }
                 else
                 {
-
+                   
                     playerSeen = false;
                 }
             }
             else if (playerSeen)
-            {
-                playerSeen = false;
-                
-
-            }
+            { playerSeen = false; }
         }
+
+
         // white box test
         else if (playerSeen)
         {
