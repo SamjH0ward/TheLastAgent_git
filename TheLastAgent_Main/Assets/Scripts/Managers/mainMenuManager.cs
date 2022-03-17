@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class mainMenuManager : MonoBehaviour
 {
+    // change test
     [SerializeField] GameObject _mainMenu;
     [SerializeField] GameObject _howToPlay;
     public void OnClickStart()
