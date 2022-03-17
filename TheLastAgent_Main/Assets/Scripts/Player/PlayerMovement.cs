@@ -6,7 +6,7 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
     
-    [SerializeField] private float movementSpeed = 7;
+    private float movementSpeed = 6.5f;
 
     private Vector2 movementInput;
     private Rigidbody2D rb2d;
