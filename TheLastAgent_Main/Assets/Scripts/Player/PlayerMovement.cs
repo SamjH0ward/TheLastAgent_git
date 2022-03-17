@@ -6,7 +6,6 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
     
-    // Start is called before the first frame update
     [SerializeField] private float movementSpeed = 7;
 
     private Vector2 movementInput;
@@ -19,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnMove(InputValue input)
     {
+        // gets the player input 
         movementInput = input.Get<Vector2>();
     }
 
@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void FixedUpdate()
     {
+        // moves the player depending on movespeed an player input
         rb2d.velocity = movementInput * movementSpeed;
     }
 }

@@ -39,25 +39,32 @@ public class EnemyAgro : MonoBehaviour
 
         // if ray intersects with object
 
+        //check the ray result is not null
         if (hit)
         {
+            //check the player is in the rays angle 
             if (angle < _fovAngle / 2)
             {
+                // checks if the ray hit the player 
                 if (hit.collider.CompareTag("Player"))
                 {
+                    // plays sound affect only when the player is seen from being out of enemys sight
                     if (!playerSeen)
                     {
                         alert.Play();
                     }
                     playerSeen = true;
+                    // draws the ray from the enemy to the player
                     Debug.DrawRay(_fovPoint.position, dir, Color.red);
                 }
+                // turns playerSeen to false when the payer is behind a wall
                 else
                 {
                    
                     playerSeen = false;
                 }
             }
+            // turns playerSeen to false if it leaves the enmies field of view
             else if (playerSeen)
             { playerSeen = false; }
         }
@@ -86,6 +93,7 @@ public class EnemyAgro : MonoBehaviour
 
         #region patroll 
         else if (playerSeen == false) {
+            // set player speed to a slower speed when not chasing the player
             agent.maxSpeed = 3.5f;
             if (_patrolRoots.Length == 0) return;
             bool search = false;

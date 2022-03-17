@@ -2,29 +2,32 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using UnityEngine.Audio;
+
 
 
 public class GameManager : MonoBehaviour
 {
-    
-    
-    public static int score;
+
+
+    #region private veriables
     private int scoreThisAttempt = 0;
+    #endregion
+
+    #region private serializeField 
     [SerializeField] private TextMeshProUGUI score_Ui;
     [SerializeField] private TextMeshProUGUI lives_Ui;
     [SerializeField] private TextMeshProUGUI timer_Ui;
     [SerializeField] private GameObject _escapePoint;
     [SerializeField] private AudioSource _pickUpAudio;
+    #endregion
+
+    #region static veriables
     public static int lives = 3;
-
-  
-
+    public static int score;
 
     private static GameManager _instance;
-
     public static GameManager Instance { get { return _instance; } }
-
+    #endregion
 
     private void Awake()
     {
@@ -39,10 +42,6 @@ public class GameManager : MonoBehaviour
             _instance = this;
         }
     }
-
-
-
-
 
     private void Start()
     {
@@ -63,22 +62,19 @@ public class GameManager : MonoBehaviour
             }
             else if (currenScene == SceneManager.GetSceneByName("LevelTwo"))
             {
-
+                // starts a timer for 2 minutes and 45 seconds
                 StartCoroutine(levelTimer(165));
             }
             else
             {
+                // starts a timer for 3 minutes 
                 StartCoroutine(levelTimer(180));
             }
         }
-
     }
-
-
-
     private void OnEnable()
     {
-        //event listeners
+        //event listeners activate 
         Escape.PlayerHasEscaped += LoadNextLevel;
         PickUp.onPickUpCollected += pickUpCollected;
         MainObj.onMainOBJCollected += mainOBJCollected;
@@ -86,6 +82,7 @@ public class GameManager : MonoBehaviour
     }
     private void OnDisable()
     {
+        //event listeners deactivate 
         Escape.PlayerHasEscaped -= LoadNextLevel;
         PickUp.onPickUpCollected -= pickUpCollected;
         MainObj.onMainOBJCollected -= mainOBJCollected;
@@ -103,13 +100,14 @@ public class GameManager : MonoBehaviour
     }
 
    
-
     private void LoadNextLevel()
     {
+        // gives the player 100 points if they escape with 3 lives
         if(lives == 3)
         {
             score += 100;
         }
+        // gives the player 1 life per level if they have less than 3 lives
         else
         {
             lives += 1;
@@ -127,6 +125,7 @@ public class GameManager : MonoBehaviour
         scoreThisAttempt += 100;
         score_Ui.text = "Score: " + score;
 
+        //plays the pickup sound affect 
         _pickUpAudio.Play();
     }
 
@@ -168,13 +167,10 @@ public class GameManager : MonoBehaviour
             // formats time into minute and seconds 
             mins = Mathf.FloorToInt(display / 60);
             secs = Mathf.FloorToInt(display % 60);
+            // displays time in the format 0:00
             timer_Ui.text = mins + ":" + string.Format("{0:00}", secs);
             yield return null;
         }
         playerWasCaught();
     }
-
-
-
-
 }

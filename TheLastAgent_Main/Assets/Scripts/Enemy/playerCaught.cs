@@ -9,9 +9,8 @@ public class playerCaught : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
+            // call for an action in the gameManager script
             OnPlayerCaught?.Invoke();
-           
-            
         }
     }
 
