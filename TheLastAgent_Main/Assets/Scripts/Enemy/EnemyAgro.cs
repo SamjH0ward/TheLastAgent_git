@@ -16,7 +16,7 @@ public class EnemyAgro : MonoBehaviour
     [SerializeField] private Transform _target;
     [SerializeField] private Transform[] _patrolRoots;
     [SerializeField] private AudioSource alert;
-    private bool playerSeen;
+    public bool playerSeen;
     private int index;
     #endregion 
 
