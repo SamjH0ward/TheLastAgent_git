@@ -22,7 +22,7 @@ public class bloodLust : MonoBehaviour
             bloodLustTime += Time.deltaTime;
             bloodLustTime = Mathf.CeilToInt(bloodLustTime);
             bloodLustTime = Mathf.FloorToInt(bloodLustTime);
-            Debug.Log("Gay");
+            Debug.Log(bloodLustTime);
         }
         bloodLustTime = 0;
     }
