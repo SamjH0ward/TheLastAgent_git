@@ -18,13 +18,16 @@ public class EnemyAgro : MonoBehaviour
     [SerializeField] private AudioSource alert;
     public bool playerSeen;
     private int index;
-    #endregion 
+    private BloodLust bloodLust;
+    [SerializeField]  private float speedGainScale = 0.2f;
+    #endregion
 
- 
+
     void Start()
     {
         agent = GetComponent<IAstarAI>();
         alert = GetComponent<AudioSource>();
+        bloodLust = GetComponent<BloodLust>();
 
     }
     void Update()
@@ -87,7 +90,7 @@ public class EnemyAgro : MonoBehaviour
             agent.destination = _target.position;
             agent.SearchPath();
             // increases the speed of the enemy when chasing the player
-            agent.maxSpeed = 6;
+            agent.maxSpeed = 6.0f + (bloodLust.bloodLustTime * speedGainScale);
         }
         #endregion
 

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bloodLust : MonoBehaviour
+public class BloodLust : MonoBehaviour
 {
     public EnemyAgro chasing;
-    private float bloodLustTime = 0;
+    public float bloodLustTime = 0;
     private float display;
 
     // Start is called before the first frame update
@@ -17,13 +17,14 @@ public class bloodLust : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        while (chasing.playerSeen == true)
+        
+        if (chasing.playerSeen == true)
         {
             bloodLustTime += Time.deltaTime;
-            bloodLustTime = Mathf.CeilToInt(bloodLustTime);
-            bloodLustTime = Mathf.FloorToInt(bloodLustTime);
+            
             Debug.Log(bloodLustTime);
         }
-        bloodLustTime = 0;
+        else { bloodLustTime = 0; }
+        
     }
 }
